@@ -9,13 +9,14 @@ FROM health.user_logs;
 -- the name of the temp table was spelled incorrectly
 -- the query needs to be wrapped in () and also AS after the name
 DROP TABLE IF EXISTS user_measure_count;
-CREATE TEMP TABLE user_measure_count
+CREATE TEMP TABLE user_measure_count AS
+(
 SELECT
     id,
     COUNT(*) AS measure_count,
     COUNT(DISTINCT measure) as unique_measures
   FROM health.user_logs
-  GROUP BY 1; 
+  GROUP BY 1); 
 
 -- 2. How many total measurements do we have per user on average?
 -- instead of mean it should be avg
