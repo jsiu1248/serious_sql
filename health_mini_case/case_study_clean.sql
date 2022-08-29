@@ -45,10 +45,11 @@ FROM user_measure_count
 WHERE measure_count >= 1000;
 
 -- 6. Have logged blood glucose measurements?
+-- the is part should be an equal sign. Also, it isn't called blood sugar
 SELECT
   COUNT(DISTINCT id)
 FROM health.user_logs
-WHERE measure is 'blood_sugar';
+WHERE measure = 'blood_glucose';
 
 -- 7. Have at least 2 types of measurements?
 SELECT
