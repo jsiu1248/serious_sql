@@ -53,10 +53,11 @@ FROM health.user_logs
 WHERE measure = 'blood_glucose';
 
 -- 7. Have at least 2 types of measurements?
+-- don't have to call origin name anymore because there is an alias through temp table
 SELECT
   COUNT(*)
 FROM user_measure_count
-WHERE COUNT(DISTINCT measures) >= 2;
+WHERE unique_measures >= 2;
 
 -- 8. Have all 3 measures - blood glucose, weight and blood pressure?
 SELECT
