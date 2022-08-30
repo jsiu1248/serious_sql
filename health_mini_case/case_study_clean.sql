@@ -36,7 +36,7 @@ FROM user_measure_count;
 SELECT
   COUNT(*)
 FROM user_measure_count
-WHERE measure >= 3;
+WHERE measure_count >= 3;
 
 -- 5. How many users have 1,000 or more measurements?
 -- you can't sum variables with characters. You have to count
@@ -67,8 +67,9 @@ FROM user_measure_count
 WHERE unique_measures = 3;
 
 -- 9.  What is the median systolic/diastolic blood pressure values?
+
 SELECT
-  PERCENTILE_CONT(0.5) WITHIN (ORDER BY systolic) AS median_systolic
-  PERCENTILE_CONT(0.5) WITHIN (ORDER BY diastolic) AS median_diastolic
+  CAST(PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY systolic) AS NUMERIC) AS median_systolic,
+  CAST(PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY diastolic) AS NUMERIC) AS median_diastolic
 FROM health.user_logs
-WHERE measure is blood_pressure;
+WHERE measure = 'blood_pressure';
