@@ -60,9 +60,10 @@ FROM user_measure_count
 WHERE unique_measures >= 2;
 
 -- 8. Have all 3 measures - blood glucose, weight and blood pressure?
+-- user_measure_count is mispelled
 SELECT
   COUNT(*)
-FROM usr_measure_count
+FROM user_measure_count
 WHERE unique_measures = 3;
 
 -- 9.  What is the median systolic/diastolic blood pressure values?
