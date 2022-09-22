@@ -41,6 +41,13 @@ ORDER BY record_count
 
 -- What is the distribution of foreign keys within each table?
 -- How many unique foreign key values exist in each table?
+-- check if both tables have all of the ids
+SELECT COUNT(distinct actor_id) FROM dvd_rentals.actor
+WHERE EXISTS (SELECT distinct actor id FROM dvd_rentals.film_actor)
+
+-- within both tables it seems that all of the actors are in both
+SELECT COUNT(distinct actor_id) FROM dvd_rentals.film_actor
+WHERE EXISTS (SELECT distinct actor id FROM dvd_rentals.actor)
 
 
 
