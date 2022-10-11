@@ -43,17 +43,43 @@ FROM trading.daily_btc
 WHERE volume = (SELECT MIN(volume) FROM trading.daily_btc)
 
 -- How many days had a low_price price which was 10% less than the open_price?
+-- 33 days
+WITH change AS (SELECT open_price, close_price, ROUND((close_price - open_price) / open_price*100,2) as percent_change, 
+count(*) as counting
 
+FROM trading.daily_btc 
+GROUP BY open_price, close_price
 
+HAVING (close_price - open_price) / open_price*100  <-10)
+
+SELECT SUM(counting) FROM change
 /*
 sum all of the days
 calculate low price 10% lower than open price
 */
 
 
+-- What percentage of days have a higher close_price than open_price?
+-- 1283 days
+WITH change AS (SELECT open_price, close_price, ROUND((close_price - open_price) / open_price*100,2) as percent_change, 
+count(*) as counting
 
-What percentage of days have a higher close_price than open_price?
-What was the largest difference between high_price and low_price and which date did it occur?
+FROM trading.daily_btc 
+GROUP BY open_price, close_price
+
+HAVING (close_price - open_price) / open_price*100  <-10)
+
+SELECT SUM(counting) FROM change
+
+-- What was the largest difference between high_price and low_price and which date did it occur?
+WITH change AS (SELECT open_price, close_price, close_price - open_price as change
+
+FROM trading.daily_btc 
+GROUP BY open_price, close_price)
+
+
+SELECT MAX(change), MIN(change)FROM change
+
 If you invested $10,000 on the 1st January 2016 - how much is your investment worth in 1st of February 2021? Use the close_price for this calculation
 
 
