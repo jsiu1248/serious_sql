@@ -80,6 +80,8 @@ GROUP BY open_price, close_price)
 
 SELECT MAX(change), MIN(change)FROM change
 
-If you invested $10,000 on the 1st January 2016 - how much is your investment worth in 1st of February 2021? Use the close_price for this calculation
+-- If you invested $10,000 on the 1st January 2016 - how much is your investment worth in 1st of February 2021? Use the close_price for this calculation
+WITH prices AS (SELECT market_date, close_price FROM trading.daily_btc WHERE market_date = '2016-01-01' or market_date='2021-02-01')
 
+SELECT MAX(close_price), MIN(close_price), MAX(close_price) - MIN(close_price) change  FROM prices
 
